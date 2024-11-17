@@ -1,9 +1,8 @@
-import {  Express, Request, Response } from "express";
-import * as express from 'express';
+import express, { json, Request, Response } from "express";
 import {config} from "dotenv";
-import { myDataSource } from "../service/db_connection";
-import router from "../routes/router";
-import { test } from "../middleware/testware";
+import { myDataSource } from "./service/db_connection";
+import authRouter from "./routes/auth.router";
+
 
 myDataSource.initialize().then(()=>{
   console.log("Database Initialized");
@@ -13,12 +12,14 @@ myDataSource.initialize().then(()=>{
 
 config();
 
-const app: Express = express();
-app.use(router);
-app.use(express.json());
-app.use(test)
+const app = express();
 
-const port = process.env.PORT || 3000;
+app.use(json());
+app.use(authRouter);
+
+// app.use(test)
+
+const port = process.env.PORT || 8080;
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

@@ -1,12 +1,19 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const app = (0, express_1.default)();
+const express = require("express");
+const dotenv_1 = require("dotenv");
+const db_connection_1 = require("./service/db_connection");
+const router_1 = require("./routes/router");
+db_connection_1.myDataSource.initialize().then(() => {
+    console.log("Database Initialized");
+}).catch((err) => {
+    console.log(err);
+});
+(0, dotenv_1.config)();
+const app = express();
+app.use(router_1.default);
+app.use(express.json());
+// app.use(test)
 const port = process.env.PORT || 3000;
 app.get("/", (req, res) => {
     res.send("Express + TypeScript Server");
