@@ -1,7 +1,9 @@
-import express, { json, Request, Response } from "express";
+import express, { json, NextFunction, Request, Response } from "express";
 import {config} from "dotenv";
 import { myDataSource } from "./service/db_connection";
 import authRouter from "./routes/auth.router";
+import { handleError } from "./middleware/errorHandler";
+import { responseHandler } from "./middleware/responseHandler";
 
 
 myDataSource.initialize().then(()=>{
@@ -17,13 +19,11 @@ const app = express();
 app.use(json());
 app.use(authRouter);
 
-// app.use(test)
+app.use(responseHandler)
+app.use(handleError)
 
 const port = process.env.PORT || 8080;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

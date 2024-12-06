@@ -3,6 +3,7 @@ import { AuthController } from "../controller/auth.controller";
 import { dtoValidationMiddleware } from "../middleware/validation";
 import { LoginDto } from "../dto/logindto";
 import { UserSignupDto } from "../dto/signup.dto";
+import createHttpError from "http-errors";
 
 const authRouter = Router();
 const authController: AuthController = new AuthController();
@@ -17,17 +18,15 @@ authRouter.post(
 )
 authRouter.post(
   "/signup",
-  dtoValidationMiddleware(UserSignupDto), 
+  // dtoValidationMiddleware(UserSignupDto), 
   async (req: Request, res: Response, next: NextFunction) => {
     // console.log("inside controller handler", req.body);
     try {
       const result = await authController.signup(req.body);
-      res.send(result)
+      req.body = result
+      next()
     } catch (err) {
-      res.status(400).json({
-        status:400,
-        message: (err as Error).message
-      })
+      next(err)
     }
   }
 )

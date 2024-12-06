@@ -4,6 +4,7 @@ import { LoginDto } from "../dto/logindto";
 import { myDataSource } from "../service/db_connection";
 import { User } from "../models/user.model";
 import { UserSignupDto } from "../dto/signup.dto";
+import createHttpError from "http-errors";
 
 export class AuthController{
 
@@ -22,15 +23,14 @@ export class AuthController{
     {
         const userRepository = myDataSource.getRepository(User)
         const found = await userRepository.findOneBy({email: data.email})
-        if(!found) {
-            const user: User = new User();
-            user.email = data.email;
-            user.name = data.name;
-            user.password = data.password;
-            return await userRepository.save(user)
-        } else {
-            throw new Error("user already exists with email "+data.email);
+        if(found) {
+            throw createHttpError(400, "user already exists with email "+data.email)
         }
+        const user: User = new User();
+        user.email = data.email;
+        user.name = data.name;
+        user.password = data.password;
+        return await userRepository.save(user) 
     }
 
     static logout(req:Request,res:Response)
