@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { AuthController } from "../controller/auth.controller";
 import { dtoValidationMiddleware } from "../middleware/validation";
-import { LoginDto } from "../dto/logindto";
-import { UserSignupDto } from "../dto/signup.dto";
+import { LoginDto } from "./logindto";
+import { UserSignupDto } from "./signup.dto";
 import createHttpError from "http-errors";
+import { AuthController } from "./auth.controller";
 
 const authRouter = Router();
 const authController: AuthController = new AuthController();

@@ -1,9 +1,9 @@
 import { validate } from "class-validator";
 import { Request, Response } from "express";
-import { LoginDto } from "../dto/logindto";
-import { myDataSource } from "../service/db_connection";
-import { User } from "../models/user.model";
-import { UserSignupDto } from "../dto/signup.dto";
+import { LoginDto } from "./logindto";
+import { myDataSource } from "../config/dbconfig";
+import { User } from "../features/user/user.model";
+import { UserSignupDto } from "../auth/signup.dto";
 import createHttpError from "http-errors";
 
 export class AuthController{

@@ -1,7 +1,7 @@
 import express, { json, NextFunction, Request, Response } from "express";
 import {config} from "dotenv";
-import { myDataSource } from "./service/db_connection";
-import authRouter from "./routes/auth.router";
+import { myDataSource } from "./config/dbconfig";
+import authRouter from "./auth/auth.router";
 import { handleError } from "./middleware/errorHandler";
 import { responseHandler } from "./middleware/responseHandler";
 

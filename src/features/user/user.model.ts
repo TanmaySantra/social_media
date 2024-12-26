@@ -1,6 +1,6 @@
 import {Column, Entity} from "typeorm";
-import {Base} from "./basemodel";
-import { Gender } from "./interface";
+import {Base} from "../../base/basemodel";
+import { Gender } from "../../base/interface";
 
 @Entity()
 export class User extends Base{
