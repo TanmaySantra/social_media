@@ -10,5 +10,4 @@ export class Base extends BaseEntity
     updatedAt?:Date;
     @Column({name:"active",type:"boolean",default:true})
     active!:Boolean;
-
 }

@@ -2,7 +2,7 @@ import {Column, Entity} from "typeorm";
 import {Base} from "../../base/basemodel";
 import { Gender } from "../../base/interface";
 
-@Entity()
+@Entity('users')
 export class User extends Base{
 
     @Column({name:"name",type:"varchar"})

@@ -6,7 +6,7 @@ export const myDataSource = new DataSource({
     username: "postgres",
     password: "1234",
     database: "social_tanmay",
-    entities: ["src/models/*.ts"],
+    entities: ["./src/**/*.model.ts"],
     logging: true,
     synchronize: true,
 })
